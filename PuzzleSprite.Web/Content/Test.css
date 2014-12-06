@@ -1,0 +1,24 @@
+﻿
+.icon {
+	display: inline-block;
+}
+
+.sample1 {
+	puzzle: Sample1.png;
+}
+
+.sample2 {
+	puzzle: Sample2.psd;
+}
+
+.cloud {
+	puzzle: cloud.png;
+}
+
+.sun {
+	puzzle: sun.png;
+}
+
+.bigImage {
+	puzzle: Sample3.psd;
+}
