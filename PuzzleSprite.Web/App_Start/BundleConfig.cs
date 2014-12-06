@@ -1,4 +1,4 @@
-﻿using PuzzleSprite.Web.Lib.Bundles;
+﻿using PuzzleSprite.Mvc;
 using System.Web;
 using System.Web.Optimization;
 
@@ -39,9 +39,12 @@ namespace PuzzleSprite.Web {
 
 			BundleTable.EnableOptimizations = true;
 
+			var baseSource =  "/Content/image/";
+			var path = System.Web.HttpContext.Current.Server.MapPath("~" + baseSource);
+			
 			Bundle customBundle = new StyleBundle("~/client/style");
 			customBundle.Include("~/Content/Test.css");
-			customBundle.Transforms.Add(new PuzzleSpriteCSSBundle());
+			customBundle.Transforms.Add(new SpriteBundleStyleTransform(baseSource, path, path));
 			bundles.Add(customBundle);
 
 		}
