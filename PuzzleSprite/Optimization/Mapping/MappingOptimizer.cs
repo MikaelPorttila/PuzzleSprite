@@ -18,8 +18,6 @@ namespace PuzzleSprite.Optimization.Mapping {
 
 				if(prevSprite != null) {
 
-					// kolla om jag ska lägga den bredvid.
-
 					int startX = prevSprite.X + prevSprite.Width;
 					if((startX + img.Width) > width) {
 
@@ -29,6 +27,7 @@ namespace PuzzleSprite.Optimization.Mapping {
 						height = height + img.Height;
 
 					} else {
+
 						// add to row.
 						img.Y = prevSprite.Y;
 						img.X = startX;
