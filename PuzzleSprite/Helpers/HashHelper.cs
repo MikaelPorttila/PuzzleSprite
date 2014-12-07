@@ -25,19 +25,17 @@ namespace PuzzleSprite.Helpers {
 				writeIdx += byteArr.Length;
 			}
 
-
 			using(var md5 = MD5.Create()) {
 				return md5.ComputeHash(output);
 			}
 		}
 
 		internal static string ByteArrayToString(byte[] byteArr) {
-
 			return BitConverter.ToString(byteArr).Replace("-", "");
 		}
 
 		internal static string CombineHashesToString(List<byte[]> hashes) {
-			return HashHelper.ByteArrayToString(HashHelper.CombineHashes(hashes));
+			return ByteArrayToString(CombineHashes(hashes));
 		}
 
 	}

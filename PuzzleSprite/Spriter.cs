@@ -12,7 +12,7 @@ using PuzzleSprite.Optimization.Mapping;
 
 namespace PuzzleSprite {
 	
-	public class Spriter {
+	internal class Spriter {
 
 		private BitmapProvider _bitmapProvider;
 		private BitmapProvider BitmapProvider {
@@ -32,7 +32,7 @@ namespace PuzzleSprite {
 			}
 
 			foreach(var sprite in sheet.Sprites) {
-				var file = files.FirstOrDefault(f => f.Name == sprite.Name);
+				var file = files.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.Name) == sprite.Name);
 				if(file != null) {
 					using(var bitmap = this.BitmapProvider.GetBitmap(file.FullName)) {
 						if(bitmap != null) {
@@ -43,7 +43,7 @@ namespace PuzzleSprite {
 			}
 		}
 
-		public void Combine(SpriteParameters parameters) {
+		internal void Bundle(SpriteParameters parameters) {
 
 			if(parameters == null) {
 				throw new ArgumentNullException("parameters is null");
@@ -101,7 +101,43 @@ namespace PuzzleSprite {
 
 		}
 
-		public string TransformCSS (string css, string sourcePath, string imageBundleOutputPath, string imageUrl) {
+		internal string TransformCSS(string css, string imageUrl, string imageBundleOutputPath, params string[] sourcePaths) {
+
+			List<SpriteSheet> sheets = new List<SpriteSheet>(sourcePaths.Length);
+			foreach(var path in sourcePaths) {
+				
+				SpriteSheet sheet = new SpriteSheet(path);
+				var files = new DirectoryInfo(sheet.SourcePath).GetFiles();
+				foreach(var file in files) {
+					Sprite sprite = new Sprite(Path.GetFileNameWithoutExtension(file.Name));
+					sheet.Sprites.Add(sprite);
+				}
+
+				sheets.Add(sheet);
+			}
+
+			// Execute image bundling
+			this.Bundle(new SpriteParameters {
+				SpriteSheets = sheets,
+				OutputPath = imageBundleOutputPath
+			});
+
+
+			// Transform CSS
+			StringBuilder cssBuilder = new StringBuilder();
+			foreach(SpriteSheet sheet in sheets) {
+
+				var url = imageUrl + sheet.Name;
+				foreach(Sprite sprite in sheet.Sprites) {
+					cssBuilder.Append(CssHelper.GetSpriteCssWithClass(sprite.Name, url, sprite));
+				}
+	
+			}
+
+			return css + cssBuilder.ToString();
+		}
+
+		internal string TransformCSS(string css, string sourcePath, string imageBundleOutputPath, string imageUrl) {
 
 			if(string.IsNullOrEmpty(css)) {
 				return css;
@@ -109,22 +145,22 @@ namespace PuzzleSprite {
 
 			// Parse css.
 			List<string> spriteRequests = new List<string>();
+			
 			var requests = CssHelper.GetAttributes(css);
-			foreach(Match attr in requests) {
-				spriteRequests.Add(CssHelper.GetAttributeValue(attr.Value));
+			foreach(string attr in requests) {
+				spriteRequests.Add(CssHelper.GetAttributeValue(attr));
 			}
+
 			SpriteSheet sheet = new SpriteSheet(sourcePath, spriteRequests.ToArray());
 
-
 			// Execute image bundling
-			this.Combine(new SpriteParameters {
+			this.Bundle(new SpriteParameters {
 				SpriteSheets = new List<SpriteSheet>(1) { sheet },
 				OutputPath = imageBundleOutputPath
 			});
 
-			// Transform Css
-			foreach(Match req in requests) {
-				string attr = req.Value;
+			// Transform CSS
+			foreach(string attr in requests) {
 				string spriteName = CssHelper.GetAttributeValue(attr);
 
 				var replaceCss = "";

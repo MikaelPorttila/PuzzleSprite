@@ -1,4 +1,4 @@
-﻿using PuzzleSprite.Mvc;
+﻿using PuzzleSprite;
 using System.Web;
 using System.Web.Optimization;
 
@@ -37,14 +37,20 @@ namespace PuzzleSprite.Web {
 						"~/Content/themes/base/jquery.ui.progressbar.css",
 						"~/Content/themes/base/jquery.ui.theme.css"));
 
-			BundleTable.EnableOptimizations = true;
-
-			var baseSource =  "/Content/image/";
-			var path = System.Web.HttpContext.Current.Server.MapPath("~" + baseSource);
 			
+
+			var basePath =  "/Content/image/";
+			var url = "/Content/image/" + "bundle/";
+			var output = System.Web.HttpContext.Current.Server.MapPath("~" + url);
+			var source = System.Web.HttpContext.Current.Server.MapPath("~" + basePath);
+
 			Bundle customBundle = new StyleBundle("~/client/style");
 			customBundle.Include("~/Content/Test.css");
-			customBundle.Transforms.Add(new SpriteBundleStyleTransform(baseSource, path, path));
+			customBundle.Transforms.Add(new SpriteBundleStyleTransform(url, source, output));
+			//customBundle.Transforms.Add(new ImageAutoBundleStyleTransform(basePath + "bundle/", output, source));
+
+			BundleTable.EnableOptimizations = true;
+
 			bundles.Add(customBundle);
 
 		}

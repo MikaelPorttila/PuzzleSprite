@@ -4,21 +4,23 @@
 }
 
 .sample1 {
-	puzzle: Sample1.png;
+	puzzle: Sample1;
 }
 
 .sample2 {
-	puzzle: Sample2.psd;
+	puzzle: Sample2;
 }
 
 .cloud {
-	puzzle: cloud.png;
+	puzzle: cloud;
 }
 
 .sun {
-	puzzle: sun.png;
+	puzzle: sun;
+	color: green;
 }
 
 .bigImage {
-	puzzle: Sample3.psd;
+	puzzle: Sample3;
+	
 }

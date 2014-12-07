@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Extensions\LinqExtension.cs" />
     <Compile Include="Helpers\CssHelper.cs" />
+    <Compile Include="Mvc\ImageAutoBundleStyleTransform.cs" />
     <Compile Include="Mvc\SpriteBundleStyleTransform.cs" />
     <Compile Include="Optimization\Mapping\MappingOptimizer.cs" />
     <Compile Include="Parsers\BitmapProvider.cs" />

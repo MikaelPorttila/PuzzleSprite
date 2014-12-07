@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Optimization;
 
-namespace PuzzleSprite.Mvc {
+namespace PuzzleSprite {
 	public class SpriteBundleStyleTransform : IBundleTransform {
 
-		private readonly string _sourceFolder;
-		private readonly string _outputFolder;
+		private readonly string _sourcePath;
+		private readonly string _outputPath;
 		private readonly string _imageUrl;
 
-		public SpriteBundleStyleTransform(string imageUrlBase, string sourceFolder, string outputFolder) {
+		public SpriteBundleStyleTransform(string imageUrlBase, string sourcePath, string outputPath) {
 			
-			this._sourceFolder = sourceFolder;
-			this._outputFolder = outputFolder;
+			this._sourcePath = sourcePath;
+			this._outputPath = outputPath;
 			this._imageUrl = imageUrlBase;
 		}
 
@@ -24,8 +24,8 @@ namespace PuzzleSprite.Mvc {
 			response.Content = new Spriter()
 				.TransformCSS(
 					css: response.Content,
-					sourcePath: this._sourceFolder,
-					imageBundleOutputPath: this._outputFolder,
+					sourcePath: this._sourcePath,
+					imageBundleOutputPath: this._outputPath,
 					imageUrl: this._imageUrl);
 		}
 

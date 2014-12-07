@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PuzzleSprite {
-	public class SpriteParameters {
+	internal class SpriteParameters {
 
 		/// <summary>
 		/// Output path. 
 		/// </summary>
-		public string OutputPath { get; set; }
+		internal string OutputPath { get; set; }
 
-		public List<SpriteSheet> SpriteSheets { get; set; }
+		internal List<SpriteSheet> SpriteSheets { get; set; }
 
 	}
 }
