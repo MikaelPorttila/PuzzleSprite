@@ -22,9 +22,14 @@ namespace PuzzleSprite {
 				case ".psd":
 					img = this._psdParser.PsdToBitmap(filePath);
 					break;
-				default:
+
+				case ".png":
+				case ".gif":
+				case ".jpg":
+				case ".tif":
 					img = Bitmap.FromFile(filePath);
 					break;
+
 			}
 
 			if(img != null) {

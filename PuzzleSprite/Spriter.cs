@@ -56,7 +56,7 @@ namespace PuzzleSprite {
 			foreach(var sheet in parameters.SpriteSheets) {
 
 				if(string.IsNullOrEmpty(sheet.SourcePath) || !Directory.Exists(sheet.SourcePath)) {
-					return;
+					continue;
 				}
 
 				var sourceFiles = new DirectoryInfo(sheet.SourcePath).GetFiles();
@@ -84,7 +84,7 @@ namespace PuzzleSprite {
 				sheet.Name = HashHelper.CombineHashesToString(hashes) + ".png";
 				var outputPath = Path.Combine(parameters.OutputPath, sheet.Name);
 				if(File.Exists(outputPath)) {
-					return;
+					continue;
 				}
 
 				// Build image	
@@ -146,7 +146,7 @@ namespace PuzzleSprite {
 			// Parse css.
 			List<string> spriteRequests = new List<string>();
 			
-			var requests = CssHelper.GetAttributes(css);
+			var requests = CssHelper.ParseAttributes(css);
 			foreach(string attr in requests) {
 				spriteRequests.Add(CssHelper.GetAttributeValue(attr));
 			}

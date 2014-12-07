@@ -46,8 +46,13 @@ namespace PuzzleSprite.Web {
 
 			Bundle customBundle = new StyleBundle("~/client/style");
 			customBundle.Include("~/Content/Test.css");
-			customBundle.Transforms.Add(new SpriteBundleStyleTransform(url, source, output));
-			//customBundle.Transforms.Add(new ImageAutoBundleStyleTransform(basePath + "bundle/", output, source));
+			//customBundle.Transforms.Add(new SpriteBundleStyleTransform(url, source, output));
+			customBundle.Transforms.Add(
+				new ImageAutoBundleStyleTransform(
+					basePath + "bundle/", 
+					output, 
+					source + "GreenIcons",
+					source + "BlueIcons"));
 
 			BundleTable.EnableOptimizations = true;
 
