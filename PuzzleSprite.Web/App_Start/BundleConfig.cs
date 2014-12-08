@@ -38,21 +38,16 @@ namespace PuzzleSprite.Web {
 						"~/Content/themes/base/jquery.ui.theme.css"));
 
 			
-
-			var basePath =  "/Content/image/";
-			var url = "/Content/image/" + "bundle/";
-			var output = System.Web.HttpContext.Current.Server.MapPath("~" + url);
-			var source = System.Web.HttpContext.Current.Server.MapPath("~" + basePath);
-
+			// Simple custom style bundle.
 			Bundle customBundle = new StyleBundle("~/client/style");
 			customBundle.Include("~/Content/Test.css");
-			//customBundle.Transforms.Add(new SpriteBundleStyleTransform(url, source, output));
+
+			// Add Puzzle Image auto-bundler transform.
 			customBundle.Transforms.Add(
-				new ImageAutoBundleStyleTransform(
-					basePath + "bundle/", 
-					output, 
-					source + "GreenIcons",
-					source + "BlueIcons"));
+				new ImageAutoBundleStyleTransform( "/Content/image/bundle/",
+					"~/Content/image/",
+					"~/Content/image/GreenIcons",
+					"~/Content/image/BlueIcons"));
 
 			BundleTable.EnableOptimizations = true;
 
