@@ -7,17 +7,22 @@ using System.Web.Optimization;
 using System.Web;
 
 namespace PuzzleSprite {
-	public class ImageAutoBundleStyleTransform : IBundleTransform {
+	public class ImageBundleStyleTransform : IBundleTransform {
 
-		private readonly string[] _paths;
+		private string[] _paths;
 		private readonly string _output;
 		private readonly string _url;
 
 
-		public ImageAutoBundleStyleTransform(string url, string output, params string[] paths) {
+		public ImageBundleStyleTransform(string url, string output, params string[] paths) {
 			this._output = output;
 			this._paths = paths;
 			this._url = url;
+		}
+
+		public IBundleTransform Include(params string[] paths) {
+			this._paths = paths;
+			return this;
 		}
 
 		public void Process(BundleContext context, BundleResponse response) {

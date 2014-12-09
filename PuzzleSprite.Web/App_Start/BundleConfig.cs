@@ -44,10 +44,10 @@ namespace PuzzleSprite.Web {
 
 			// Add Puzzle Image auto-bundler transform.
 			customBundle.Transforms.Add(
-				new ImageAutoBundleStyleTransform( "/Content/image/bundle/",
-					"~/Content/image/",
-					"~/Content/image/GreenIcons",
-					"~/Content/image/BlueIcons"));
+				new ImageBundleStyleTransform("/Content/image/bundle/", "~/Content/image/")
+					.Include(
+						"~/Content/image/GreenIcons",
+						"~/Content/image/BlueIcons"));
 
 			BundleTable.EnableOptimizations = true;
 
