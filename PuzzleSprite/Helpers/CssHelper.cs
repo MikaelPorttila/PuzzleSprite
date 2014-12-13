@@ -40,7 +40,7 @@ namespace PuzzleSprite.Helpers {
 		}
 		internal static string GetSpriteCss(string name, int width, int height, int x, int y) {
 			return
-				string.Format("background-image: url({0}); ", name) +
+				string.Format("background-image: url(\"{0}\"); ", name) +
 				string.Format("width: {0}px; ", width) +
 				string.Format("height: {0}px; ", height) +
 				string.Format("background-position: -{0}px -{1}px; ", x, y);

@@ -14,6 +14,8 @@ namespace PuzzleSprite {
 	
 	internal class Spriter {
 
+		private const string IMAGE_EXTENSION = ".png";
+
 		private BitmapProvider _bitmapProvider;
 		private BitmapProvider BitmapProvider {
 			get {
@@ -81,7 +83,7 @@ namespace PuzzleSprite {
 
 				MappingOptimizer.Optimize(sheet);
 
-				sheet.Name = HashHelper.CombineHashesToString(hashes) + ".png";
+				sheet.Name = HashHelper.CombineHashesToString(hashes) + IMAGE_EXTENSION;
 				var outputPath = Path.Combine(parameters.OutputPath, sheet.Name);
 				if(File.Exists(outputPath)) {
 					continue;
@@ -101,7 +103,7 @@ namespace PuzzleSprite {
 
 		}
 
-		internal string TransformCSS(string css, string imageUrl, string imageBundleOutputPath, params string[] sourcePaths) {
+		internal string TransformCSS(string css, string imageUrl, string imageBundleOutputPath, string cssClassPrefix, params string[] sourcePaths) {
 
 			List<SpriteSheet> sheets = new List<SpriteSheet>(sourcePaths.Length);
 			foreach(var path in sourcePaths) {
@@ -122,14 +124,13 @@ namespace PuzzleSprite {
 				OutputPath = imageBundleOutputPath
 			});
 
-
 			// Transform CSS
 			StringBuilder cssBuilder = new StringBuilder();
 			foreach(SpriteSheet sheet in sheets) {
 
 				var url = imageUrl + sheet.Name;
 				foreach(Sprite sprite in sheet.Sprites) {
-					cssBuilder.Append(CssHelper.GetSpriteCssWithClass(sprite.Name, url, sprite));
+					cssBuilder.Append(CssHelper.GetSpriteCssWithClass(cssClassPrefix + sprite.Name, url, sprite));
 				}
 	
 			}

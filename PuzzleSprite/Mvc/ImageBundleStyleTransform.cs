@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Optimization;
-using System.Web;
 
 namespace PuzzleSprite {
 	public class ImageBundleStyleTransform : IBundleTransform {
 
-		private string[] _paths;
+		#region Variables
+		
+		private List<string> _paths;
 		private readonly string _output;
 		private readonly string _url;
+		private readonly string _prefix;
 
+		#endregion Variables
 
-		public ImageBundleStyleTransform(string url, string output, params string[] paths) {
+		#region Constructors
+
+		public ImageBundleStyleTransform(string url, string output): this(url, output, "") { }
+		public ImageBundleStyleTransform(string url, string output, string prefix) {
 			this._output = output;
-			this._paths = paths;
 			this._url = url;
+			this._paths = new List<string>();
+			this._prefix = prefix;
 		}
 
+		#endregion Constructors
+
+		#region Methods
+
 		public IBundleTransform Include(params string[] paths) {
-			this._paths = paths;
+
+			if(paths != null){
+				this._paths.AddRange(paths);
+			}
+
 			return this;
 		}
 
@@ -37,7 +49,10 @@ namespace PuzzleSprite {
 					response.Content, 
 					this._url, 
 					context.HttpContext.Server.MapPath(this._output),
+					this._prefix,
 					paths.ToArray());
 		}
+
+		#endregion Methods
 	}
 }
