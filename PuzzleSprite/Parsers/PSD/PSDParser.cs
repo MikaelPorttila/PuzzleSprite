@@ -63,7 +63,12 @@ namespace PuzzleSprite.Parsers.PSD {
 			var r = psdFile.ImageData[0][pos];
 			var g = psdFile.ImageData[1][pos];
 			var b = psdFile.ImageData[2][pos];
-			var a = psdFile.ImageData[3][pos];
+
+			// Default alpha.
+			byte a = 255; 
+			if(psdFile.ImageData.Length > 3) {
+				a = psdFile.ImageData[3][pos];
+			}
 
 			switch(psdFile.ColorMode) {
 				case PsdFile.ColorModes.RGB:
