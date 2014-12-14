@@ -92,6 +92,13 @@ namespace PuzzleSprite {
 				// Build image	
 				sheet.Image = new Bitmap(sheet.Width, sheet.Height);
 				using(Graphics graphic = Graphics.FromImage(sheet.Image)) {
+
+					graphic.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+					graphic.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+					graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+					graphic.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+					graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
 					this.ProcessSprites(sheet, sourceFiles, (sprite, path, bitmap) => {
 						graphic.DrawImage(bitmap, new Point(sprite.X, sprite.Y));
 					});

@@ -196,6 +196,7 @@
     <Content Include="Content\Test.css" />
     <Content Include="Content\Image\BlueIcons\feed.psd" />
     <Content Include="Content\Image\GreenIcons\GreenFeed.psd" />
+    <Content Include="Content\Image\BlueIcons\TheTest.psd" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

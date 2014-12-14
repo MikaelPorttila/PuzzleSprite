@@ -1,4 +1,7 @@
-﻿
+﻿body{
+	background-color:#eee;
+}
+
 .icon {
 	display: inline-block;
 }
